@@ -5,18 +5,26 @@
     {
       "dnsSearchDomains": null,
       "environmentFiles": null,
-      "logConfiguration": null,
-      "entryPoint": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/first-run-task-definition",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": [],
       "portMappings": [
         {
-          "hostPort": 8080,
+          "hostPort": 80,
           "protocol": "tcp",
-          "containerPort": 8080
+          "containerPort": 80
         }
       ],
-      "command": null,
+      "command": [],
       "linuxParameters": null,
-      "cpu": 0,
+      "cpu": 256,
       "environment": [],
       "resourceRequirements": null,
       "ulimits": null,
@@ -26,10 +34,10 @@
       "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": null,
+      "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "200410302512.dkr.ecr.us-east-1.amazonaws.com/ams-repository",
+      "image": "nginx:latest",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -37,7 +45,7 @@
       "interactive": null,
       "healthCheck": null,
       "essential": true,
-      "links": null,
+      "links": [],
       "hostname": null,
       "extraHosts": null,
       "pseudoTerminal": null,
@@ -46,35 +54,42 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "ams-deployment-container"
+      "name": "nginx"
     }
   ],
   "placementConstraints": [],
-  "memory": "1",
-  "taskRoleArn": "arn:aws:iam::200410302512:role/ecsTaskExecutionRole",
+  "memory": "512",
+  "taskRoleArn": null,
   "compatibilities": [
-    "EC2"
+    "EC2",
+    "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:200410302512:task-definition/ams-task-definition:2",
-  "family": "ams-task-definition",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:200410302512:task-definition/first-run-task-definition:2",
+  "family": "first-run-task-definition",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
     },
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
+      "name": "ecs.capability.execution-role-awslogs"
     },
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "ecs.capability.execution-role-ecr-pull"
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
     },
     {
       "targetId": null,
@@ -91,11 +106,11 @@
   ],
   "pidMode": null,
   "requiresCompatibilities": [
-    "EC2"
+    "FARGATE"
   ],
   "networkMode": "awsvpc",
   "runtimePlatform": null,
-  "cpu": "1024",
+  "cpu": "256",
   "revision": 2,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
