@@ -52,8 +52,7 @@
   "placementConstraints": [],
   "memory": "1",
   "taskRoleArn": "arn:aws:iam::200410302512:role/ecsTaskExecutionRole",
-  "compatibilities": [
-    "EXTERNAL",
+  "compatibilities": [    
     "EC2"
   ],
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:200410302512:task-definition/ams-task-definition:6",
